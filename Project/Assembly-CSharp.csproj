@@ -72,6 +72,7 @@
     <Compile Include="Assets\Helpers\vectors\v4.cs" />
     <Compile Include="Assets\Helpers\vectors\v4f.cs" />
     <Compile Include="Assets\Helpers\vectors\v4i.cs" />
+    <Compile Include="Assets\RenderMaze\RenderMaze.cs" />
     <Compile Include="Assets\Sobaka\Mazes\AldousBroderBelyakov\AldousBroderBelyakov.cs" />
     <Compile Include="Assets\Sobaka\Mazes\Amari\Amari.cs" />
     <Compile Include="Assets\Sobaka\Mazes\Base\Maze.cs" />

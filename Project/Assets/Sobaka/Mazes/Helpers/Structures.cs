@@ -25,12 +25,20 @@ namespace Sobaka.Maze
                 return fraction < 0.5 ? ( (int) Value ) : ( (int) Value + 1 );
             }
         }
+        
+        
     }
 
     struct Zone
     {
         public int Id;
         public int ParentId;
+
+        public Zone( int _id, int _parent = -1 )
+        {
+            Id       = _id;
+            ParentId = _parent;
+        }
     }
 
     struct PathWidth

@@ -1,7 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-struct PathField : IField
+class PathField : Field
 {
     public Path Path;
+
+
+    public override void CalculateCells()
+    {
+        
+    }
 }

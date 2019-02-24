@@ -149,6 +149,13 @@ public static class Helpers {
         return _list.GetRange(0, _list.Count);
     }
 
+    public static Dictionary<K,V> Copy<K,V>(
+        this Dictionary<K,V> _dictionary
+    )
+    {
+        return _dictionary.ToList().Copy().ToDictionary( pair => pair.Key, pair => pair.Value );
+    }
+
     #endregion
     
     #region dictionary

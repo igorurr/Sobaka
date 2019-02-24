@@ -12,6 +12,7 @@ namespace Sobaka.Maze.Texture
         private Tree.TreeMaze a_TreeMaze;
         
         public TreeToTexture( Tree.TreeMaze _treeMaze )
+            :base( _treeMaze.Field )
         {
             a_TreeMaze = _treeMaze;
         }
