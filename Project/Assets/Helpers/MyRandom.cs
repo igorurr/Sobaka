@@ -7,36 +7,25 @@ public static class MyRandom
     {
         get { return Random.value; }
     }
-    public static int IntValue
-    {
-        get
-        {
-            float aaaa = ( Random.value * 2 - 1);
-            float aadaa = aaaa * int.MaxValue;
-            int aaduaa = (int)aadaa;
-            return aaduaa;
-        }
-    }
     
-    public static float Range( int _a, int _b )
+    public static float FloatRange( int _a, int _b )
     {
         return Random.Range(_a, _b);
     }
     
-    public static float FloatRange( Vector2 _ab )
+    public static float FloatRange( v2f _ab )
     {
         return Random.Range( _ab.x, _ab.y );
     }
     
-    public static int IntRange( Vector2Int _ab )
+    public static int IntRange( v2i _ab )
     {
         return IntRange( _ab.x, _ab.y );
     }
     
     public static int IntRange( int _a, int _b )
     {
-        int ret = Random.Range( _a, _b + 1 );
-        return ret == _b+1 ? _b : ret ;
+        return Random.Range( _a, _b );
     }
     
     public static int IntBefore( int _a )

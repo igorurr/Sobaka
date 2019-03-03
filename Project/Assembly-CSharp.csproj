@@ -82,6 +82,8 @@
     <Compile Include="Assets\Sobaka\Mazes\FragmentRandome\FragmentRandome.cs" />
     <Compile Include="Assets\Sobaka\Mazes\Helpers\Structures.cs" />
     <Compile Include="Assets\Sobaka\Mazes\TreeToTexture\TreeToTexture.cs" />
+    <Compile Include="Assets\Sobaka\Tree\Helpers\ISobakaRandome.cs" />
+    <Compile Include="Assets\Sobaka\Tree\Helpers\SobakaRandome.cs" />
     <Compile Include="Assets\Sobaka\Tree\Node.cs" />
     <Compile Include="Assets\Sobaka\Tree\Root.cs" />
     <Compile Include="Assets\TestRandomeMap\Room.cs" />

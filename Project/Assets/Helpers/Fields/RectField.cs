@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 class RectField : Field
@@ -32,24 +34,24 @@ class RectField : Field
         // однако когда мы это будем оптимизировать реализация у каждого дочернего класса от Field поменяется, поэтому код дублируется, его немного так шо пох
 
         int
-            xMin = Mathf.Min( a.x, b.x, c.x, d.x ), 
-            xMax = Mathf.Max( a.x, b.x, c.x, d.x ), 
-            yMin = Mathf.Min( a.y, b.y, c.y, d.y ),
-            yMax = Mathf.Max( a.y, b.y, c.y, d.y );
+            xMin = (int)Mathf.Min( a.x, b.x, c.x, d.x ), 
+            xMax = (int)Mathf.Max( a.x, b.x, c.x, d.x ), 
+            yMin = (int)Mathf.Min( a.y, b.y, c.y, d.y ),
+            yMax = (int)Mathf.Max( a.y, b.y, c.y, d.y );
 
-        HashSet inset = new HashSet();
-        HashSet outset = new HashSet();
+        HashSet<v2i> inset = new HashSet<v2i>();
+        HashSet<v2i> outset = new HashSet<v2i>();
 
-        Func<v2f,PointPlace> checkPointPlace = ( point ) => {
+        Func<v2i,PointPlace> checkPointPlace = ( point ) => {
             4 / 0;
         };
 
         for( int x = xMin; x <= xMax; x++ )
             for( int y = yMin; y <= yMax; y++ )
             {
-                v2f cellPoint = new v2f( x, y );
+                v2i cellPoint = new v2i( x, y );
                 
-                Tupple<PointPlace,PointPlace> pointPlace = IsInOutset( cellPoint, checkPointPlace );
+                Tuple<bool,bool> pointPlace = IsInOutset( cellPoint, checkPointPlace );
 
                 if( pointPlace.Item1 )
                     inset.Add( cellPoint );

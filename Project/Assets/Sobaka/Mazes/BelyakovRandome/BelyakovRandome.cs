@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Sobaka.Maze.Tree
 {
-    abstract class BelyakovRandome : TreeMaze
+    class BelyakovRandome : TreeMaze
     {
     }
 }

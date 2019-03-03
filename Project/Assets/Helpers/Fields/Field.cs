@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -47,28 +48,27 @@ abstract class Field
         OUTSET
     }
 
-    protected Tupple<PointPlace,PointPlace> IsInOutset( v2f _cellPoint, Func<v2f,PointPlace> _checkPointPlace )
+    protected Tuple<bool,bool> IsInOutset( v2i _cellPoint, Func<v2i,PointPlace> _checkPointPlace )
     {
         // cellpoint (координаты ячейки) не то же самое что и координаты точки (point)
 
         PointPlace pointPlaceLeftBottom  = _checkPointPlace( _cellPoint );
-        PointPlace pointPlaceLeftTop     = _checkPointPlace( new v2f( _cellPoint.x,   _cellPoint.y+1 ) );
-        PointPlace pointPlaceRightTop    = _checkPointPlace( new v2f( _cellPoint.x+1, _cellPoint.y+1 ) );
-        PointPlace pointPlaceRightBottom = _checkPointPlace( new v2f( _cellPoint.x+1, _cellPoint.y   ) );
-
-        Tupple<PointPlace,PointPlace> ret = new Tupple<PointPlace,PointPlace>();
-
+        PointPlace pointPlaceLeftTop     = _checkPointPlace( new v2i( _cellPoint.x,   _cellPoint.y+1 ) );
+        PointPlace pointPlaceRightTop    = _checkPointPlace( new v2i( _cellPoint.x+1, _cellPoint.y+1 ) );
+        PointPlace pointPlaceRightBottom = _checkPointPlace( new v2i( _cellPoint.x+1, _cellPoint.y   ) );
+        
         // inset
-        ret.Item1 = 
+        bool inset = 
             pointPlaceLeftBottom != PointPlace.OUTSET && pointPlaceLeftTop != PointPlace.OUTSET && 
             pointPlaceRightTop != PointPlace.OUTSET && pointPlaceRightBottom != PointPlace.OUTSET;
 
-        // outset
-        ret.Item2 = 
+        bool outset = 
             ( pointPlaceLeftBottom == PointPlace.INSET || pointPlaceLeftTop == PointPlace.INSET || 
             pointPlaceRightTop == PointPlace.INSET || pointPlaceRightBottom == PointPlace.INSET ) ||
             ( pointPlaceLeftBottom == PointPlace.BORDER && pointPlaceLeftTop == PointPlace.BORDER && 
             pointPlaceRightTop == PointPlace.BORDER && pointPlaceRightBottom == PointPlace.BORDER );
+
+        return new Tuple<bool, bool>( inset, outset );
     }
 
     #endregion

@@ -15,7 +15,7 @@ namespace Sobaka.Maze
         protected Dictionary<v2i, int> a_CellsZones;
     
         public Field  Field           { get; protected set; }
-        public bool   SmoothingField  { get; protected set; }
+        public bool   CutingBorderCells  { get; protected set; }
         public float  CycleResult     { get; protected set; }
         public float  IsolationResult { get; protected set; }
 
@@ -30,16 +30,33 @@ namespace Sobaka.Maze
             get { return a_Isolation; }
             protected set { a_Isolation = value; }
         }
+    
+        #endregion
 
+        #region Public Methods
+        
         public Maze( Field _field )
         {
             a_Cycle     = new ExactPercentage( false, 0 );
             a_Isolation = new ExactPercentage( false, 1 );
 
             Field          = _field;
-            SmoothingField = true;
+            CutingBorderCells = true;
             
             InitCells();
+        }
+    
+        #endregion
+
+        #region Protected Methods
+
+        /*protected virtual void InitDefault()
+        {
+            a_Zones      = new List<Zone>();
+            a_CellsZones = new Dictionary<v2i, int>();
+
+            CycleResult     = 0;
+            IsolationResult = 0;
         }
 
         private void InitDefaultZones()
@@ -54,8 +71,12 @@ namespace Sobaka.Maze
                 a_CellsZones[cell.Key] = i;
                 i++;
             }
-        }
+        }*/
+        
+        #endregion
 
+        #region Private Methods
+        
         private void InitCells()
         {
             List<v2i> cells = Field.CellsInset;
