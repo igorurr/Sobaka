@@ -2,10 +2,41 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Helpers.Math;
 
 class PathField : Field
 {
     public Path Path;
+
+    public PointPlace ebuchauafunctiua( v2f _point ){
+        List<v2f> pointsPath = Points;
+        List<SegmentLine> segmentsPath = new List<SegmentLine>( pointsPath.Count );
+
+        for( int i=1; i < pointsPath.Count; i++ )
+            segmentsPath[i-1] = new SegmentLine.From2Points( pointsPath[i], pointsPath[i-1] );
+
+        segmentsPath[pointsPath.Count-1] = new SegmentLine.From2Points( pointsPath[0], pointsPath.Last() );
+
+        // надо замутить контрольный тест когда луч из точки проходит через точку многоугольника, тогда по идее эта точка должна принадлежать двум его отрезкам
+        // луч берём параллельный оси x в сторону +бесконечности
+        LightWay dirrection = new LightWay( _point, new v2f( 1, 0 ) );
+
+        int countCollisions = 0;
+
+        foreach( var segmentPath in segmentsPath ){
+            v2f? collision = dirrection.GetCollision( segmentPath );
+
+            if( collision == null )
+                continue;
+
+            countCollisions++;
+
+            if( segmentPath.PointBelong( collision.Value ) )
+                return PointPlace.BORDER;
+        }
+
+        return ( countCollisions % 2 > 0 ) ? PointPlace.INSET : PointPlace.OUTSET;
+    }
 
     public override void CalculateCells()
     {

@@ -51,4 +51,16 @@ public class v2f : v2<float>
 	public v2f( float _x, float _y )
 		:base( _x, _y )
 	{}
+
+	public static v2f Lerp( v2f a, v2f b, float t )
+	{
+		return (v2f)Vector2.Lerp( a, b, t );
+	}
+	public static float InvLerp( v2f a, v2f b, v2f c ){
+		// подразумевается, что точки лежат на одной прямой, c лежит между b и a, отрезок, если он направленный, начинается в a и заканчивается в b
+		if( Mathf.Abs( a.x - b.x ) > Mathf( a.y - b.y ) )
+			return ( c.x - a.x ) / ( b.x - a.x );
+		else
+			return ( c.y - a.y ) / ( b.y - a.y );
+	}
 }
