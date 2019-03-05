@@ -49,10 +49,10 @@ class RectField : Field
             anglePD = Vector2.Angle( pd, pa );
 
         if (
-            anglePA.Equals(180) ||
-            anglePB.Equals(180) ||
-            anglePC.Equals(180) ||
-            anglePD.Equals(180)
+            anglePA.Equal(180) ||
+            anglePB.Equal(180) ||
+            anglePC.Equal(180) ||
+            anglePD.Equal(180)
         )
             return PointPlace.BORDER;
         
@@ -62,7 +62,7 @@ class RectField : Field
             Vector2.Angle( pc, pd ) +
             Vector2.Angle( pd, pa );
 
-        return ( angls.Equals(180) ) ? PointPlace.INSET : PointPlace.OUTSET;
+        return ( angls.Equal(180) ) ? PointPlace.INSET : PointPlace.OUTSET;
     }
 
     public override void CalculateCells()

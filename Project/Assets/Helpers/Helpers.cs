@@ -235,44 +235,30 @@ public static class Helpers {
     #endregion
     
     #region float
-    
-    public static bool Equals( this float a, float b, float delta = 0.000000001f )
-    {
-        return (a - b) < delta;
-    }
-    
-    public static bool Equals( this int a, float b, float delta = 0.000000001f )
-    {
-        return (a - b) < delta;
-    }
-    
-    public static bool Equals( this float a, int b, float delta = 0.000000001f )
-    {
-        return (a - b) < delta;
-    }
-    
-    public static bool BelongsToRange( float a, float b, float c )
-    {
-        return c >= a && a <= b;
-    }
-
-    #endregion
-    
-    #region float
-
-    public static bool More( this float a, float b )
-    {
-        return a.CompareTo(b) == 1;
-    }
 
     public static bool Less( this float a, float b )
     {
         return a.CompareTo(b) == -1;
     }
 
+    public static bool LessEqual( this float a, float b )
+    {
+        return a.CompareTo(b) != 1;
+    }
+
     public static bool Equal( this float a, float b )
     {
         return a.CompareTo(b) == 0;
+    }
+
+    public static bool MoreEqual( this float a, float b )
+    {
+        return a.CompareTo(b) != -1;
+    }
+
+    public static bool More( this float a, float b )
+    {
+        return a.CompareTo(b) == 1;
     }
 
     #endregion

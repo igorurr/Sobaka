@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using MathHelpers;
 
 class PathField : Field
 {
@@ -19,16 +20,33 @@ class PathField : Field
 
     public override PointPlace GetPointPlace(v2f _point)
     {
-        List<v2f> pathPoints = Path.Points;
-        List<v2f> pathPaths = new List<v2f>( pathPoints.Count );
+        List<v2f>         pointsPath   = Path.Points;
+        List<SegmentLine> segmentsPath = new List<SegmentLine>( pointsPath.Count );
 
-        for( int i=1; i<pathPoints.Count; i++ )
-            pathPaths.Add( pathPoints[i] - pathPoints[i-1] );
-        
-        pathPaths.Add( pathPoints[0] - pathPoints.Last() );
-        
-        // начало отрезка pathPaths[i] лежит в pathPoints[i-1]
-        
+        for( int i=1; i < pointsPath.Count; i++ )
+            segmentsPath[i-1] = SegmentLine.From2Points( pointsPath[i], pointsPath[i-1] );
+
+        segmentsPath[pointsPath.Count-1] = SegmentLine.From2Points( pointsPath[0], pointsPath.Last() );
+
+        // надо замутить контрольный тест когда луч из точки проходит через точку многоугольника, тогда по идее эта точка должна принадлежать двум его отрезкам
+        // луч берём параллельный оси x в сторону +бесконечности
+        LightWay dirrection = new LightWay( _point, new v2f( 1, 0 ) );
+
+        int countCollisions = 0;
+
+        foreach( var segmentPath in segmentsPath ){
+            v2f collision = dirrection.GetCollision( segmentPath );
+
+            if( collision == null )
+                continue;
+
+            countCollisions++;
+
+            if( segmentPath.PointBelong( collision ) )
+                return PointPlace.BORDER;
+        }
+
+        return ( countCollisions % 2 > 0 ) ? PointPlace.INSET : PointPlace.OUTSET;
     }
 
     public override void CalculateCells()
