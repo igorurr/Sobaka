@@ -28,6 +28,43 @@ class RectField : Field
         this.d = d;
     }
 
+    public override PointPlace GetPointPlace(v2f _point)
+    {
+        // небольшой хак: если сумма всех 4 углов, образованных 2 соседними вершинами прямоугольника и точкой _point
+        // равна 360 градусов - точка находится внутри прямоугольника, иначе - снаружи
+        // ВНИМАНИЕ - хак работает ТОЛЬКО при нахождении углов через скалярное произведение,
+        // если искать иным путём, будет находиться развёрнутый угол, а не его противоположность
+        // если один из углов равен 180 градусам - точка лежит на линии прямоугольника
+        
+        Vector2 
+            pa = (Vector2)( a - _point ), 
+            pb = (Vector2)( b - _point ), 
+            pc = (Vector2)( c - _point ), 
+            pd = (Vector2)( d - _point );
+
+        float
+            anglePA = Vector2.Angle( pa, pb ),
+            anglePB = Vector2.Angle( pb, pc ),
+            anglePC = Vector2.Angle( pc, pd ),
+            anglePD = Vector2.Angle( pd, pa );
+
+        if (
+            anglePA.Equals(180) ||
+            anglePB.Equals(180) ||
+            anglePC.Equals(180) ||
+            anglePD.Equals(180)
+        )
+            return PointPlace.BORDER;
+        
+        float angls =
+            Vector2.Angle( pa, pb ) +
+            Vector2.Angle( pb, pc ) +
+            Vector2.Angle( pc, pd ) +
+            Vector2.Angle( pd, pa );
+
+        return ( angls.Equals(180) ) ? PointPlace.INSET : PointPlace.OUTSET;
+    }
+
     public override void CalculateCells()
     {
         // если бы реализация всегда оставалась такой - это можно было бы вынести в отдельную функцию в базовом классе и не печатать один и тот же код сто раз
@@ -42,16 +79,12 @@ class RectField : Field
         HashSet<v2i> inset = new HashSet<v2i>();
         HashSet<v2i> outset = new HashSet<v2i>();
 
-        Func<v2i,PointPlace> checkPointPlace = ( point ) => {
-            4 / 0;
-        };
-
         for( int x = xMin; x <= xMax; x++ )
             for( int y = yMin; y <= yMax; y++ )
             {
                 v2i cellPoint = new v2i( x, y );
                 
-                Tuple<bool,bool> pointPlace = IsInOutset( cellPoint, checkPointPlace );
+                Tuple<bool,bool> pointPlace = IsInOutset( cellPoint );
 
                 if( pointPlace.Item1 )
                     inset.Add( cellPoint );

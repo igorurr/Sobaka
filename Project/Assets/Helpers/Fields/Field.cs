@@ -42,20 +42,20 @@ abstract class Field
 
     #region Helpers
 
-    protected enum PointPlace {
+    public enum PointPlace {
         INSET,
         BORDER,
         OUTSET
     }
 
-    protected Tuple<bool,bool> IsInOutset( v2i _cellPoint, Func<v2i,PointPlace> _checkPointPlace )
+    protected Tuple<bool,bool> IsInOutset( v2i _cellPoint )
     {
         // cellpoint (координаты ячейки) не то же самое что и координаты точки (point)
 
-        PointPlace pointPlaceLeftBottom  = _checkPointPlace( _cellPoint );
-        PointPlace pointPlaceLeftTop     = _checkPointPlace( new v2i( _cellPoint.x,   _cellPoint.y+1 ) );
-        PointPlace pointPlaceRightTop    = _checkPointPlace( new v2i( _cellPoint.x+1, _cellPoint.y+1 ) );
-        PointPlace pointPlaceRightBottom = _checkPointPlace( new v2i( _cellPoint.x+1, _cellPoint.y   ) );
+        PointPlace pointPlaceLeftBottom  = GetPointPlace( (v2f)_cellPoint );
+        PointPlace pointPlaceLeftTop     = GetPointPlace( new v2f( _cellPoint.x,   _cellPoint.y+1 ) );
+        PointPlace pointPlaceRightTop    = GetPointPlace( new v2f( _cellPoint.x+1, _cellPoint.y+1 ) );
+        PointPlace pointPlaceRightBottom = GetPointPlace( new v2f( _cellPoint.x+1, _cellPoint.y   ) );
         
         // inset
         bool inset = 
@@ -70,6 +70,8 @@ abstract class Field
 
         return new Tuple<bool, bool>( inset, outset );
     }
+
+    public abstract PointPlace GetPointPlace(v2f _point);
 
     #endregion
 }

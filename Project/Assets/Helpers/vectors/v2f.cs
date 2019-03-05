@@ -51,4 +51,14 @@ public class v2f : v2<float>
 	public v2f( float _x, float _y )
 		:base( _x, _y )
 	{}
+	
+	public static explicit operator v2i(v2f v)
+	{
+		return new v2i( (int)v.x, (int)v.y );
+	}
+	
+	public static explicit operator Vector2(v2f v)
+	{
+		return new Vector2( v.x, v.y );
+	}
 }

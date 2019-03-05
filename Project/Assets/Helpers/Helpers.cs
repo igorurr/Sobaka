@@ -258,6 +258,25 @@ public static class Helpers {
 
     #endregion
     
+    #region float
+
+    public static bool More( this float a, float b )
+    {
+        return a.CompareTo(b) == 1;
+    }
+
+    public static bool Less( this float a, float b )
+    {
+        return a.CompareTo(b) == -1;
+    }
+
+    public static bool Equal( this float a, float b )
+    {
+        return a.CompareTo(b) == 0;
+    }
+
+    #endregion
+    
     #region string
 
     public static void ForEvery(

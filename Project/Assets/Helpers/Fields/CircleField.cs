@@ -8,6 +8,16 @@ class CircleField : Field
     public v2f Center;
     public float Radius;
 
+    public override PointPlace GetPointPlace(v2f _point)
+    {
+        float mathEqualRes = Mathf.Pow( ( _point.x - Center.x ) , 2 ) + Mathf.Pow( ( _point.y - Center.y ) , 2 );
+        float rr = Mathf.Pow( Radius , 2 );
+
+        return
+            ( mathEqualRes.Less( rr ) ) ? PointPlace.INSET :
+            ( mathEqualRes.More( rr ) ) ? PointPlace.OUTSET : PointPlace.BORDER;
+    }
+
     public override void CalculateCells()
     {
         // если бы реализация всегда оставалась такой - это можно было бы вынести в отдельную функцию в базовом классе и не печатать один и тот же код сто раз
@@ -22,16 +32,12 @@ class CircleField : Field
         HashSet<v2i> inset = new HashSet<v2i>();
         HashSet<v2i> outset = new HashSet<v2i>();
 
-        Func<v2i,PointPlace> checkPointPlace = ( point ) => {
-            4 / 0;
-        };
-
         for( int x = xMin; x <= xMax; x++ )
             for( int y = yMin; y <= yMax; y++ )
             {
                 v2i cellPoint = new v2i( x, y );
                 
-                Tuple<bool,bool> pointPlace = IsInOutset( cellPoint, checkPointPlace );
+                Tuple<bool,bool> pointPlace = IsInOutset( cellPoint );
 
                 if( pointPlace.Item1 )
                     inset.Add( cellPoint );
@@ -43,4 +49,6 @@ class CircleField : Field
         a_CellsInset = inset.ToList();
         a_CellsOutset = outset.ToList();
     }
+    
+    
 }

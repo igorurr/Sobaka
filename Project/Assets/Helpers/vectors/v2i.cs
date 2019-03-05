@@ -46,4 +46,9 @@ public class v2i : v2<int>
 	{
 		get { return new v2i( x-1, y ); }
 	}
+	
+	public static explicit operator v2f(v2i v)
+	{
+		return new v2f( (float)v.x, (float)v.y );
+	}
 }

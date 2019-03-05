@@ -1,10 +1,20 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 struct Path
 {
-    public bool Cycle;
-    public List<v2f> Points;
+    public bool Cycle { get; }
+    public List<v2f> Points { get; }
+
+    public Path( List<v2f> _points, bool _cycle = false )
+    {
+        if( _points.Count < 3 )
+            throw new Exception("Слишком мало углов в контуре");
+        
+        Points = _points;
+        Cycle = _cycle;
+    }
 
     public float MinX()
     {
