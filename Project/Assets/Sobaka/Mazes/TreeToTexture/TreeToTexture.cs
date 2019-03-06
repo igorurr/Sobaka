@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Sobaka.Maze.Tree;
 using UnityEngine;
 
 namespace Sobaka.Maze.Texture
@@ -10,11 +11,12 @@ namespace Sobaka.Maze.Texture
         // на значение максимальной отрендереной толщины утолщения.
         
         private Tree.TreeMaze a_TreeMaze;
-        
-        public TreeToTexture( Tree.TreeMaze _treeMaze )
-            :base( _treeMaze.Field )
+
+        protected override void Init()
         {
-            a_TreeMaze = _treeMaze;
+            base.Init();
+
+            a_TreeMaze = Props["treeMaze"] as TreeMaze;
         }
     }
 }

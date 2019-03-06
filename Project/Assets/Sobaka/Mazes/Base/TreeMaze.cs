@@ -109,14 +109,14 @@ namespace Sobaka.Maze.Tree
         #endregion
 
         #region Public Methods
-        
-        public TreeMaze( Field _field )
-            :base(_field)
+
+        public TreeMaze( Node _parent, dobj _props )
+            :base( _parent, _props )
         {}
         
         public Texture.TextureMaze ToTexture()
         {
-            return new Texture.TreeToTexture( this );
+            return new Texture.TreeToTexture( this.ToDobj() );
         }
 
         #endregion

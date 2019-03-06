@@ -18,8 +18,6 @@ abstract class Root : StereoBehaviour
         Randome = InitRandom();
         
         RootNode = InitRoot();
-        
-        RootNode.Generate();
     }
 
     protected abstract Node InitRoot();

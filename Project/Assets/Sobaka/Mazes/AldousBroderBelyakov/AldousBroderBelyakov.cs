@@ -113,11 +113,11 @@ namespace Sobaka.Maze.Tree
 
         #region public methods
         
-        public AldousBroderBelyakov( Field _field )
-            :base(_field)
+        public AldousBroderBelyakov( Node _parent, dobj _props )
+            :base( _parent, _props )
         {}
         
-        public override void Generate()
+        protected override void Generate()
         {
             a_Zones      = new List<Zone>();
             a_CellsZones = new Dictionary<v2i, int>();

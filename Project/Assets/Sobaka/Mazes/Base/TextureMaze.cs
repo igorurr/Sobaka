@@ -14,10 +14,8 @@ namespace Sobaka.Maze.Texture
         // все пути лабиринта длиною меньше указанной будут сливаться не зависимо от настроек изолированности
         public float      MinPathLength     { get; protected set; }
 
-        public TextureMaze( Field _field )
-            :base(_field)
-        {
-            
-        }
+        public TextureMaze( Node _parent, dobj _props )
+            :base( _parent, _props )
+        {}
     }
 }

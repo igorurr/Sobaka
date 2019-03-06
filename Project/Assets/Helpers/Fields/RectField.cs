@@ -13,9 +13,7 @@ class RectField : Field
 
     public RectField( v2f a, v2f c )
         :this( a, new v2f( a.x, c.y ), c, new v2f( c.x, a.y ) )
-    {
-        
-    }
+    {}
 
     public RectField( v2f a, v2f b, v2f c, v2f d )
     {

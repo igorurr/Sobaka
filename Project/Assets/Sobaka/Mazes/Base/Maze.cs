@@ -14,10 +14,10 @@ namespace Sobaka.Maze
         protected List<Zone>           a_Zones;
         protected Dictionary<v2i, int> a_CellsZones;
     
-        public Field  Field           { get; protected set; }
+        public Field  Field              { get; protected set; }
         public bool   CutingBorderCells  { get; protected set; }
-        public float  CycleResult     { get; protected set; }
-        public float  IsolationResult { get; protected set; }
+        public float  CycleResult        { get; protected set; }
+        public float  IsolationResult    { get; protected set; }
 
         public ExactPercentage Cycle
         {
@@ -34,13 +34,19 @@ namespace Sobaka.Maze
         #endregion
 
         #region Public Methods
+
+        public Maze( Node _parent, dobj _props )
+        :base( _parent, _props )
+        {}
         
-        public Maze( Field _field )
+        protected override void Init()
         {
+            base.Init();
+
             a_Cycle     = new ExactPercentage( false, 0 );
             a_Isolation = new ExactPercentage( false, 1 );
 
-            Field          = _field;
+            Field             = Props["field"] as Field;
             CutingBorderCells = true;
             
             InitCells();
